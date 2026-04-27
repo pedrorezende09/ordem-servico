@@ -13,10 +13,10 @@
                 <label>Cliente:</label>
                 <select name="cliente_id" class="w-full border rounded p-2">
                     @foreach ($clientes as $cliente)
-                        <option value="{{ $cliente->id }}"
-                            {{ $cliente->id == $ordem->cliente_id ? 'selected' : '' }}>
-                            {{ $cliente->nome }}
-                        </option>
+                    <option value="{{ $cliente->id }}"
+                        {{ $cliente->id == $ordem->cliente_id ? 'selected' : '' }}>
+                        {{ $cliente->nome }}
+                    </option>
                     @endforeach
                 </select>
             </div>
@@ -25,7 +25,7 @@
             <div class="mb-4">
                 <label>Descrição:</label>
                 <textarea name="descricao" class="w-full border rounded p-2">
-            {{ $ordem->descricao }}
+                {{ $ordem->descricao }}
                 </textarea>
             </div>
 
@@ -36,6 +36,24 @@
                     <option value="aberta" {{ $ordem->status == 'aberta' ? 'selected' : '' }}>Aberta</option>
                     <option value="andamento" {{ $ordem->status == 'andamento' ? 'selected' : '' }}>Em andamento</option>
                     <option value="finalizada" {{ $ordem->status == 'finalizada' ? 'selected' : '' }}>Finalizada</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label>Status do Pagamento:</label>
+
+                <select name="pagamento_status" class="w-full border rounded p-2">
+
+                    <option value="pendente"
+                        @selected($ordem->pagamento_status == 'pendente')>
+                        Pendente
+                    </option>
+
+                    <option value="pago"
+                        @selected($ordem->pagamento_status == 'pago')>
+                        Pago
+                    </option>
+
                 </select>
             </div>
 

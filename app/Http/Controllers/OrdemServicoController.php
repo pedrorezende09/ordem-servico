@@ -58,6 +58,7 @@ class OrdemServicoController extends Controller
             'user_id' => Auth::id(),
             'descricao' => $request->descricao,
             'status' => $request->status,
+            'pagamento_status' => $request->pagamento_status,
         ]);
 
         return redirect()->route('ordens.index')
@@ -100,6 +101,7 @@ class OrdemServicoController extends Controller
             'cliente_id' => $request->cliente_id,
             'descricao' => $request->descricao,
             'status' => $request->status,
+            'pagamento_status' => $request->pagamento_status,
         ]);
 
         return redirect()->route('ordens.index')

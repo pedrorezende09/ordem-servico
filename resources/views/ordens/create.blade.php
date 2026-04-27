@@ -11,19 +11,19 @@
             <div class="mb-4">
                 <label>Cliente:</label>
                 <select name="cliente_id" class="w-full border rounded p-2">
-                        @foreach ($clientes as $cliente)
-                            <option value="{{ $cliente->id }}">
-                                {{ $cliente->nome }}
-                            </option>
-                        @endforeach
-                    </select>
+                    @foreach ($clientes as $cliente)
+                    <option value="{{ $cliente->id }}">
+                        {{ $cliente->nome }}
+                    </option>
+                    @endforeach
+                </select>
             </div>
 
-             <!--Descrição-->
-             <div class="mb-4">
+            <!--Descrição-->
+            <div class="mb-4">
                 <label>Descrição:</label>
                 <textarea name="descricao" class="w-full border rounded p-2"></textarea>
-             </div>
+            </div>
 
 
             <!--Status-->
@@ -36,10 +36,22 @@
                 </select>
             </div>
 
+            <!--Pagamento (Status):-->
+            <div class="mb-4">
+                <label>Status do Pagamento:</label>
+
+                <select name="pagamento_status" class="w-full border rounded p-2">
+                    <option value="pendente">Pendente</option>
+                    <option value="pago">Pago</option>
+                </select>
+            </div>
+
+
             <button class="bg-blue-800 text-black ox-4 py-2 rounded">
                 Salvar
             </button>
 
+            
         </form>
 
     </div>

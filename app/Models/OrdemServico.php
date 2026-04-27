@@ -20,7 +20,8 @@ class OrdemServico extends Model
     'cliente_id',
     'user_id',
     'descricao',
-    'status'
+    'status',
+    'pagamento_status',
 ];
 
 }
