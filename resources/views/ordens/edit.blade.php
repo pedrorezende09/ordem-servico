@@ -57,6 +57,32 @@
                 </select>
             </div>
 
+            <select name="forma_pagamento" class="w-full border rounded p-2">
+
+                <option value="">Selecione</option>
+
+                <option value="pix"
+                    @selected($ordem->forma_pagamento == 'pix')>
+                    PIX
+                </option>
+
+                <option value="cartao"
+                    @selected($ordem->forma_pagamento == 'cartao')>
+                    Cartão
+                </option>
+
+                <option value="dinheiro"
+                    @selected($ordem->forma_pagamento == 'dinheiro')>
+                    Dinheiro
+                </option>
+
+                <option value="transferencia"
+                    @selected($ordem->forma_pagamento == 'transferencia')>
+                    Transferência
+                </option>
+
+            </select>
+
             <button class="bg-blue-600 text-black px-4 py-2 rounded">
                 Atualizar
             </button>

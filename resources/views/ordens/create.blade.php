@@ -46,12 +46,25 @@
                 </select>
             </div>
 
+            <!--Forma de Pagamento-->
+            <div class="mb-4">
+                <label>Forma de Pagamento:</label>
+
+                <select name="forma_pagamento" class="w-full border rounded p-2">
+                    <option value="">Selecione</option>
+                    <option value="pix">PIX</option>
+                    <option value="cartao">Cartão</option>
+                    <option value="dinheiro">Dinheiro</option>
+                    <option value="transferencia">Transferência</option>
+                </select>
+            </div>
+
 
             <button class="bg-blue-800 text-black ox-4 py-2 rounded">
                 Salvar
             </button>
 
-            
+
         </form>
 
     </div>

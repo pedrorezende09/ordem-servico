@@ -59,6 +59,7 @@ class OrdemServicoController extends Controller
             'descricao' => $request->descricao,
             'status' => $request->status,
             'pagamento_status' => $request->pagamento_status,
+            'forma_pagamento' => $request->forma_pagamento,
         ]);
 
         return redirect()->route('ordens.index')
@@ -102,6 +103,7 @@ class OrdemServicoController extends Controller
             'descricao' => $request->descricao,
             'status' => $request->status,
             'pagamento_status' => $request->pagamento_status,
+            'forma_pagamento' => $request->forma_pagamento,
         ]);
 
         return redirect()->route('ordens.index')

@@ -66,6 +66,7 @@
                         <th class="px-4 py-3 text-left">Descrição</th>
                         <th class="px-4 py-3 text-left">Status</th>
                         <th class="px-4 py-3 text-left">Pagamento</th>
+                        <th class="px-4 py-3 text-left">Forma de Pagamento</th>
                         <th class="px-4 py-3 text-left">Ações</th>
                     </tr>
                 </thead>
@@ -79,6 +80,8 @@
                         <td class="px-4 py-3">{{ $ordem->descricao }}</td>
                         <td class="px-4 py-3">{{ $ordem->status }}</td>
                         <td class="px-4 py-3">{{ $ordem->pagamento_status }}</td>
+                        <td class="px-4 py-3">{{ $ordem->forma_pagamento ?? '-' }}</td>
+                        
 
 
                         <td class="px-4 py-3 flex gap-2">

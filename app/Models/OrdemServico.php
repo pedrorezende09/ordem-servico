@@ -22,6 +22,7 @@ class OrdemServico extends Model
     'descricao',
     'status',
     'pagamento_status',
+    'forma_pagamento',
 ];
 
 }
