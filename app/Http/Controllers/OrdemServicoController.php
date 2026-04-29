@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrdemServico;
 use App\Models\Cliente;
+use App\Models\HistoricoOrdem;
 
 
 class OrdemServicoController extends Controller
@@ -17,11 +18,11 @@ class OrdemServicoController extends Controller
     {
         $query = OrdemServico::with('cliente');
 
-        if($request->status) {
+        if ($request->status) {
             $query->where('status', $request->status);
         }
 
-        if($request->busca) {
+        if ($request->busca) {
             $query->whereHas('cliente', function ($q) use ($request) {
                 $q->where('nome', 'like', '%' . $request->busca . '%');
             });
@@ -98,6 +99,10 @@ class OrdemServicoController extends Controller
 
         $ordem = OrdemServico::findOrFail($id);
 
+        $statusAntigo = $ordem->status;
+        $pagamentoAntigo = $ordem->pagamento_status;
+        $formaPagamentoAntiga = $ordem->forma_pagamento;
+
         $ordem->update([
             'cliente_id' => $request->cliente_id,
             'descricao' => $request->descricao,
@@ -106,19 +111,57 @@ class OrdemServicoController extends Controller
             'forma_pagamento' => $request->forma_pagamento,
         ]);
 
+        if ($statusAntigo != $request->status) {
+            HistoricoOrdem::create([
+                'ordem_servico_id' => $ordem->id,
+                'user_id' => Auth::id(),
+                'campo_alterado' => 'status',
+                'valor_antigo' => $statusAntigo,
+                'valor_novo' => $request->status,
+            ]);
+        }
+
+        if ($pagamentoAntigo != $request->pagamento_status) {
+            HistoricoOrdem::create([
+                'ordem_servico_id' => $ordem->id,
+                'user_id' => Auth::id(),
+                'campo_alterado' => 'pagamento_status',
+                'valor_antigo' => $pagamentoAntigo,
+                'valor_novo' => $request->pagamento_status,
+            ]);
+        }
+
+        if ($formaPagamentoAntiga != $request->forma_pagamento) {
+            HistoricoOrdem::create([
+                'ordem_servico_id' => $ordem->id,
+                'user_id' => Auth::id(),
+                'campo_alterado' => 'forma_pagamento',
+                'valor_antigo' => $formaPagamentoAntiga,
+                'valor_novo' => $request->forma_pagamento,
+            ]);
+        }
+
         return redirect()->route('ordens.index')
-                         -> with('success', 'Ordem atualizada com sucesso!');
+            ->with('success', 'Ordem atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy ($id)
+    public function destroy($id)
     {
         $ordem = OrdemServico::findOrFail($id);
         $ordem->delete();
 
         return redirect()->route('ordens.index')
-                         ->with('success', 'Ordem excluída com sucesso!');
+            ->with('success', 'Ordem excluída com sucesso!');
+    }
+
+    public function historico($id)
+    {
+        $ordem = OrdemServico::with(['historicos.user'])
+        ->findOrFail($id);
+
+        return view('ordens.historico', compact('ordem'));
     }
 }

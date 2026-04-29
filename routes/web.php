@@ -16,6 +16,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
 
+Route::get('/ordens/{id}/historico',[
+    OrdemServicoController::class, 'historico'])
+    ->name('ordens.historico');
+
     Route::resource('clientes', ClienteController::class);
 
     Route::resource('ordens', OrdemServicoController::class)

@@ -16,6 +16,11 @@ class OrdemServico extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function historicos()
+    {
+        return $this->hasMany(HistoricoOrdem::class);
+    }
+
     protected $fillable = [
     'cliente_id',
     'user_id',

@@ -91,6 +91,11 @@
                                 Editar
                             </a>
 
+                            <a href="{{ route('ordens.historico', $ordem->id) }}"
+                                class="text-blue-700 hover:underline">
+                                Histórico
+                            </a>
+
                             <form action="{{ route('ordens.destroy', $ordem->id) }}"
                                 method="POST"
                                 onsubmit="return confirm('Tem certeza que deseja excluir?')">
