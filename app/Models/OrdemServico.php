@@ -26,6 +26,8 @@ class OrdemServico extends Model
     'cliente_id',
     'user_id',
     'descricao',
+    'valor_servico',
+    'data_ordem',
     'status',
     'pagamento_status',
     'forma_pagamento',

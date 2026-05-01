@@ -26,6 +26,22 @@
             </div>
 
 
+            <div>
+                <label>Valor do Serviço:</label>
+                <input type="number"
+                    step="0.01"
+                    name="valor_servico"
+                    class="border rounded p-2 w-full">
+            </div>
+
+            <div>
+                <label>Data da Ordem:</label>
+                <input type="date"
+                    name="data_ordem"
+                    class="border rounded p-2 w-full">
+            </div>
+
+
             <!--Status-->
             <div class="mb-4">
                 <label>Status:</label>

@@ -60,6 +60,8 @@ class OrdemServicoController extends Controller
             'cliente_id' => $request->cliente_id,
             'user_id' => Auth::id(),
             'descricao' => $request->descricao,
+            'valor_servico' => $request->valor_servico,
+            'data_ordem' => $request->data_ordem,
             'status' => $request->status,
             'pagamento_status' => $request->pagamento_status,
             'forma_pagamento' => $request->forma_pagamento,
@@ -108,6 +110,8 @@ class OrdemServicoController extends Controller
         $ordem->update([
             'cliente_id' => $request->cliente_id,
             'descricao' => $request->descricao,
+            'valor_servico' => $request->valor_servico,
+            'data_ordem' => $request->data_ordem,
             'status' => $request->status,
             'pagamento_status' => $request->pagamento_status,
             'forma_pagamento' => $request->forma_pagamento,
@@ -162,7 +166,7 @@ class OrdemServicoController extends Controller
     public function historico($id)
     {
         $ordem = OrdemServico::with(['historicos.user'])
-        ->findOrFail($id);
+            ->findOrFail($id);
 
         return view('ordens.historico', compact('ordem'));
     }

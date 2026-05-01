@@ -29,6 +29,23 @@
                 </textarea>
             </div>
 
+            <div class="mb-4">
+                <label>Valor do Serviço:</label>
+                <input type="number"
+                    step="0.01"
+                    name="valor_servico"
+                    value="{{ $ordem->valor_servico }}"
+                    class="w-full border rounded p-2">
+            </div>
+
+            <div class="mb-4">
+                <label>Data da Ordem:</label>
+                <input type="date"
+                    name="data_ordem"
+                    value="{{ $ordem->data_ordem }}"
+                    class="w-full border rounded p-2">
+            </div>
+
             <!-- Status -->
             <div class="mb-4">
                 <label>Status:</label>

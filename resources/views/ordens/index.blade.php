@@ -64,6 +64,8 @@
                         <th class="px-4 py-3 text-left">Código</th>
                         <th class="px-4 py-3 text-left">Cliente</th>
                         <th class="px-4 py-3 text-left">Descrição</th>
+                        <th class="px-4 py-3 text-left">Valor</th>
+                        <th class="px-4 py-3 text-left">Data</th>
                         <th class="px-4 py-3 text-left">Status</th>
                         <th class="px-4 py-3 text-left">Pagamento</th>
                         <th class="px-4 py-3 text-left">Forma de Pagamento</th>
@@ -78,10 +80,12 @@
                         <td class="px-4 py-3">{{ $ordem->codigo }}</td>
                         <td class="px-4 py-3">{{ $ordem->cliente->nome }}</td>
                         <td class="px-4 py-3">{{ $ordem->descricao }}</td>
+                        <td class="px-4 py-3">R$ {{ number_format($ordem->valor_servico, 2, ',', '.') }}</td>
+                        <td class="px-4 py-3">{{ $ordem->data_ordem }}</td>
                         <td class="px-4 py-3">{{ $ordem->status }}</td>
                         <td class="px-4 py-3">{{ $ordem->pagamento_status }}</td>
                         <td class="px-4 py-3">{{ $ordem->forma_pagamento ?? '-' }}</td>
-                        
+
 
 
                         <td class="px-4 py-3 flex gap-2">
