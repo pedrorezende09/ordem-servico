@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\OrdemServico;
 use App\Models\Cliente;
 use App\Models\HistoricoOrdem;
+use Illuminate\Support\Str;
 
 
 class OrdemServicoController extends Controller
@@ -55,6 +56,7 @@ class OrdemServicoController extends Controller
         ]);
 
         OrdemServico::create([
+            'codigo' => 'OS-' . date('Y') . '-' . strtoupper(Str::random(6)),
             'cliente_id' => $request->cliente_id,
             'user_id' => Auth::id(),
             'descricao' => $request->descricao,

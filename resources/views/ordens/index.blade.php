@@ -61,7 +61,7 @@
 
                 <thead class="bg-gray-100 text-gray-700 text-sm">
                     <tr>
-                        <th class="px-4 py-3 text-left">ID</th>
+                        <th class="px-4 py-3 text-left">Código</th>
                         <th class="px-4 py-3 text-left">Cliente</th>
                         <th class="px-4 py-3 text-left">Descrição</th>
                         <th class="px-4 py-3 text-left">Status</th>
@@ -75,7 +75,7 @@
                     @foreach ($ordens as $ordem)
                     <tr class="border-b hover:bg-gray-50">
 
-                        <td class="px-4 py-3">{{ $ordem->id }}</td>
+                        <td class="px-4 py-3">{{ $ordem->codigo }}</td>
                         <td class="px-4 py-3">{{ $ordem->cliente->nome }}</td>
                         <td class="px-4 py-3">{{ $ordem->descricao }}</td>
                         <td class="px-4 py-3">{{ $ordem->status }}</td>

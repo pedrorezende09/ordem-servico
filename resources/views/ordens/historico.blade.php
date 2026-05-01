@@ -5,7 +5,7 @@
         <!-- Título -->
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800">
-                Histórico da Ordem #{{ $ordem->id }}
+                Histórico da Ordem: {{ $ordem->codigo ?? '#' . $ordem->id }}
             </h1>
 
             <a href="{{ route('ordens.index') }}"

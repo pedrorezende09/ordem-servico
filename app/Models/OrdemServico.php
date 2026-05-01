@@ -22,6 +22,7 @@ class OrdemServico extends Model
     }
 
     protected $fillable = [
+    'codigo',
     'cliente_id',
     'user_id',
     'descricao',
