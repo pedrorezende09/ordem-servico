@@ -8,6 +8,7 @@ use App\Models\OrdemServico;
 use App\Models\Cliente;
 use App\Models\HistoricoOrdem;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class OrdemServicoController extends Controller
@@ -29,7 +30,10 @@ class OrdemServicoController extends Controller
             });
         }
 
-        $ordens = $query->paginate(5)->withQueryString();
+        $ordens = $query
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('ordens.index', compact('ordens'));
     }
@@ -106,6 +110,10 @@ class OrdemServicoController extends Controller
         $statusAntigo = $ordem->status;
         $pagamentoAntigo = $ordem->pagamento_status;
         $formaPagamentoAntiga = $ordem->forma_pagamento;
+        $descricaoAntiga = $ordem->descricao;
+        $valorAntigo = $ordem->valor_servico;
+        $dataOrdemAntiga = $ordem->data_ordem;
+        $clienteAntigo = $ordem->cliente_id;
 
         $ordem->update([
             'cliente_id' => $request->cliente_id,
@@ -145,6 +153,46 @@ class OrdemServicoController extends Controller
                 'valor_antigo' => $formaPagamentoAntiga,
                 'valor_novo' => $request->forma_pagamento,
             ]);
+
+            if ($descricaoAntiga != $request->descricao) {
+                HistoricoOrdem::create([
+                    'ordem_servico_id' => $ordem->id,
+                    'user_id' => Auth::id(),
+                    'campo_alterado' => 'descricao',
+                    'valor_antigo' => $descricaoAntiga,
+                    'valor_novo' => $request->descricao,
+                ]);
+            }
+
+            if ($valorAntigo != $request->valor_servico) {
+                HistoricoOrdem::create([
+                    'ordem_servico_id' => $ordem->id,
+                    'user_id' => Auth::id(),
+                    'campo_alterado' => 'valor_servico',
+                    'valor_antigo' => $valorAntigo,
+                    'valor_novo' => $request->valor_servico,
+                ]);
+            }
+
+            if ($dataOrdemAntiga != $request->data_ordem) {
+                HistoricoOrdem::create([
+                    'ordem_servico_id' => $ordem->id,
+                    'user_id' => Auth::id(),
+                    'campo_alterado' => 'data_ordem',
+                    'valor_antigo' => $dataOrdemAntiga,
+                    'valor_novo' => $request->data_ordem,
+                ]);
+            }
+
+            if ($clienteAntigo != $request->cliente_id) {
+                HistoricoOrdem::create([
+                    'ordem_servico_id' => $ordem->id,
+                    'user_id' => Auth::id(),
+                    'campo_alterado' => 'cliente_id',
+                    'valor_antigo' => $clienteAntigo,
+                    'valor_novo' => $request->cliente_id,
+                ]);
+            }
         }
 
         return redirect()->route('ordens.index')
@@ -169,5 +217,16 @@ class OrdemServicoController extends Controller
             ->findOrFail($id);
 
         return view('ordens.historico', compact('ordem'));
+    }
+
+    public function relatorioPdf()
+    {
+        $ordens = OrdemServico::with('cliente')
+            ->latest()
+            ->get();
+
+            $pdf = Pdf::loadView('ordens.pdf', compact('ordens'));
+
+            return $pdf->download('relatorio-ordens.pdf');
     }
 }

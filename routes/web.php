@@ -12,13 +12,20 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
+    Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
 
-Route::get('/ordens/{id}/historico',[
-    OrdemServicoController::class, 'historico'])
-    ->name('ordens.historico');
+    Route::get('/ordens/{id}/historico', [
+        OrdemServicoController::class,
+        'historico'
+    ])
+        ->name('ordens.historico');
+
+    Route::get('/ordens/relatorio/pdf',
+        [OrdemServicoController::class, 'relatorioPdf']
+    )
+        ->name('ordens.pdf');
 
     Route::resource('clientes', ClienteController::class);
 
@@ -35,4 +42,4 @@ Route::get('/ordens/{id}/historico',[
         ->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

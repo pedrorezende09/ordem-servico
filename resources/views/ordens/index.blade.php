@@ -6,6 +6,12 @@
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800">Ordens de Serviço</h1>
 
+            <a href="{{ route('ordens.pdf') }}"
+                class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg shadow">
+                Gerar PDF
+            </a>
+
+
             <a href="{{ route('ordens.create') }}"
                 class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-black font-semibold px-4 py-2 rounded-lg shadow">
                 + Nova Ordem
