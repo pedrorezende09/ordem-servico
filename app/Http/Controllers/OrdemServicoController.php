@@ -30,6 +30,30 @@ class OrdemServicoController extends Controller
             });
         }
 
+        if ($request->codigo) {
+            $query->where('codigo', 'like', '%' . $request->codigo . '%');
+        }
+
+        if ($request->pagamento_status) {
+            $query->where('pagamento_status', $request->pagamento_status);
+        }
+
+        if ($request->data_inicio) {
+            $query->whereDate('data_ordem', '>=', $request->data_inicio);
+        }
+
+        if ($request->data_fim) {
+            $query->where('valor_servico', '<=', $request->data_fim);
+        }
+
+        if ($request->valor_min) {
+            $query->where('valor_servico', '>=', $request->valor_min);
+        }
+
+        if ($request->valor_max) {
+            $query->where('valor_servico', '<=', $request->valor_max);
+        }
+
         $ordens = $query
             ->latest()
             ->paginate(10)
@@ -231,8 +255,8 @@ class OrdemServicoController extends Controller
             ->latest()
             ->get();
 
-            $pdf = Pdf::loadView('ordens.pdf', compact('ordens'));
+        $pdf = Pdf::loadView('ordens.pdf', compact('ordens'));
 
-            return $pdf->download('relatorio-ordens.pdf');
+        return $pdf->download('relatorio-ordens.pdf');
     }
 }

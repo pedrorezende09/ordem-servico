@@ -26,38 +26,104 @@
         @endif
 
         <!-- Filtro -->
-        <form method="GET" action="{{ route('ordens.index') }}" class="mb-4 flex gap-2">
+        <!-- Filtro -->
+        <form method="GET" action="{{ route('ordens.index') }}" class="mb-6">
 
-            <input type="text"
-                name="busca"
-                placeholder="Buscar por cliente..."
-                value="{{ request('busca') }}"
-                class="border rounded p-2">
+            <!-- Linha principal -->
+            <div class="flex gap-2 items-center flex-wrap">
 
-            <select name="status" class="border rounded p-2">
-                <option value="">Todos</option>
+                <input type="text"
+                    name="busca"
+                    placeholder="Buscar por cliente..."
+                    value="{{ request('busca') }}"
+                    class="border rounded p-2">
 
-                <option value="aberta" @selected(request('status')=='aberta' )>
-                    Aberta
-                </option>
+                <select name="status" class="border rounded p-2">
+                    <option value="">Todos</option>
 
-                <option value="andamento" @selected(request('status')=='andamento' )>
-                    Em andamento
-                </option>
+                    <option value="aberta" @selected(request('status')=='aberta' )>
+                        Aberta
+                    </option>
 
-                <option value="finalizada" @selected(request('status')=='finalizada' )>
-                    Finalizada
-                </option>
-            </select>
+                    <option value="andamento" @selected(request('status')=='andamento' )>
+                        Em andamento
+                    </option>
 
-            <button class="bg-gray-800 text-white px-4 py-2 rounded">
-                Filtrar
-            </button>
+                    <option value="finalizada" @selected(request('status')=='finalizada' )>
+                        Finalizada
+                    </option>
+                </select>
 
-            <a href="{{ route('ordens.index') }}"
-                class="bg-gray-300 text-gray-800 px-4 py-2 rounded">
-                Limpar
-            </a>
+                <button type="button"
+                    id="toggleFiltros"
+                    class="bg-blue-500 text-white px-4 py-2 rounded">
+                    + Filtros
+                </button>
+
+                <button class="bg-gray-800 text-white px-4 py-2 rounded">
+                    Filtrar
+                </button>
+
+                <a href="{{ route('ordens.index') }}"
+                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded">
+                    Limpar
+                </a>
+
+            </div>
+
+            <!-- Filtros avançados -->
+            <div id="filtrosExtras"
+                class="hidden mt-4 bg-gray-50 p-4 rounded-lg border">
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                    <input type="text"
+                        name="codigo"
+                        placeholder="Buscar por código..."
+                        value="{{ request('codigo') }}"
+                        class="border rounded p-2">
+
+                    <select name="pagamento_status" class="border rounded p-2">
+                        <option value="">Pagamento</option>
+
+                        <option value="pendente"
+                            @selected(request('pagamento_status')=='pendente' )>
+                            Pendente
+                        </option>
+
+                        <option value="pago"
+                            @selected(request('pagamento_status')=='pago' )>
+                            Pago
+                        </option>
+                    </select>
+
+                    <input type="date"
+                        name="data_inicio"
+                        value="{{ request('data_inicio') }}"
+                        class="border rounded p-2">
+
+                    <input type="date"
+                        name="data_fim"
+                        value="{{ request('data_fim') }}"
+                        class="border rounded p-2">
+
+                    <input type="number"
+                        step="0.01"
+                        name="valor_min"
+                        placeholder="Valor mínimo"
+                        value="{{ request('valor_min') }}"
+                        class="border rounded p-2">
+
+                    <input type="number"
+                        step="0.01"
+                        name="valor_max"
+                        placeholder="Valor máximo"
+                        value="{{ request('valor_max') }}"
+                        class="border rounded p-2">
+
+                </div>
+
+            </div>
 
         </form>
 
@@ -161,5 +227,11 @@
         </div>
 
     </div>
+
+    <script>
+        document.getElementById('toggleFiltros').addEventListener('click', function() {
+            document.getElementById('filtrosExtras').classList.toggle('hidden');
+        });
+    </script>
 
 </x-app-layout>
