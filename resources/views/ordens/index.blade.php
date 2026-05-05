@@ -96,6 +96,11 @@
 
                         <td class="px-4 py-3 flex gap-2">
 
+                            <a href="{{ route('ordens.show', $ordem->id) }}"
+                                class="text-green-600 hover:underline">
+                                Visualizar
+                            </a>
+
                             <a href="{{ route('ordens.edit', $ordem->id) }}"
                                 class="text-blue-600 hover:underline">
                                 Editar

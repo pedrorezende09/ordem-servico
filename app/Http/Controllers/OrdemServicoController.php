@@ -78,9 +78,15 @@ class OrdemServicoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $ordem = OrdemServico::with([
+            'cliente',
+            'user',
+            'historicos.user'
+        ])->findOrFail($id);
+
+        return view('ordens.show', compact('ordem'));
     }
 
     /**
