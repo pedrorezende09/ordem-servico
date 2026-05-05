@@ -129,23 +129,23 @@
 
         <!-- Tabela -->
         <div class="bg-white shadow rounded-lg overflow-hidden">
-            <table class="min-w-full">
+            <table class="min-w-full table-fixed">
 
-                <thead class="bg-gray-100 text-gray-700 text-sm">
+                <thead class="bg-gray-100 text-gray-700 text-sm text-center">
                     <tr>
-                        <th class="px-4 py-3 text-left">Código</th>
-                        <th class="px-4 py-3 text-left">Cliente</th>
-                        <th class="px-4 py-3 text-left">Descrição</th>
-                        <th class="px-4 py-3 text-left">Valor</th>
-                        <th class="px-4 py-3 text-left">Data</th>
-                        <th class="px-4 py-3 text-left">Status</th>
-                        <th class="px-4 py-3 text-left">Pagamento</th>
-                        <th class="px-4 py-3 text-left">Forma de Pagamento</th>
-                        <th class="px-4 py-3 text-left">Ações</th>
+                        <th class="w-32 px-4 py-3 text-left">Código</th>
+                        <th class="w-32 px-4 py-3 text-center">Cliente</th>
+                        <th class="w-40 px-4 py-3 text-center">Descrição</th>
+                        <th class="w-20 px-4 py-3 text-center">Valor</th>
+                        <th class="w-24 px-4 py-3 text-center">Data</th>
+                        <th class="px-4 py-3 text-center">Status</th>
+                        <th class="px-4 py-3 text-center">Pagamento</th>
+                        <th class="px-4 py-3 text-center">Forma de Pagamento</th>
+                        <th class="w-56 px-4 py-3 text-center">Ações</th>
                     </tr>
                 </thead>
 
-                <tbody class="text-gray-700 text-sm">
+                <tbody class="text-gray-700 text-sm text-center">
                     @foreach ($ordens as $ordem)
                     <tr class="border-b hover:bg-gray-50">
 
@@ -154,23 +154,24 @@
                         <td class="px-4 py-3">{{ $ordem->descricao }}</td>
                         <td class="px-4 py-3">R$ {{ number_format($ordem->valor_servico, 2, ',', '.') }}</td>
                         <td class="px-4 py-3">{{ $ordem->data_ordem }}</td>
-                        <td class="px-4 py-3">
-                        <td class="px-4 py-3">
-                            @if($ordem->status == 'aberta')
-                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
-                                Aberta
-                            </span>
-                            @elseif($ordem->status == 'andamento')
-                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">
-                                Em andamento
-                            </span>
-                            @elseif($ordem->status == 'finalizada')
-                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
-                                Finalizada
-                            </span>
-                            @endif
+                        <td class="px-4 py-3 text-center">
+                            <div class="flex justify-center">
+                                @if($ordem->status == 'aberta')
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
+                                    Aberta
+                                </span>
+                                @elseif($ordem->status == 'andamento')
+                                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">
+                                    Em andamento
+                                </span>
+                                @elseif($ordem->status == 'finalizada')
+                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
+                                    Finalizada
+                                </span>
+                                @endif
+                            </div>
                         </td>
-                        </td>
+
                         <td class="px-4 py-3">
                             <span class="px-3 py-1 rounded-full text-xs font-semibold
                                 @if($ordem->pagamento_status == 'pendente') bg-red-100 text-red-800
@@ -179,40 +180,42 @@
                                 {{ ucfirst($ordem->pagamento_status) }}
                             </span>
                         </td>
-                        <td class="px-4 py-3">{{ $ordem->forma_pagamento ?? '-' }}</td>
+
+                        <td class="px-4 py-3">
+                            {{ $ordem->forma_pagamento ?? '-' }}
+                        </td>
 
 
+                        <td class="px-4 py-3 whitespace-nowrap">
+                            <div class="flex justify-center gap-3">
+                                <a href="{{ route('ordens.show', $ordem->id) }}"
+                                    class="text-green-600 hover:underline">
+                                    Visualizar
+                                </a>
 
-                        <td class="px-4 py-3 flex gap-2">
+                                <a href="{{ route('ordens.edit', $ordem->id) }}"
+                                    class="text-blue-600 hover:underline">
+                                    Editar
+                                </a>
 
-                            <a href="{{ route('ordens.show', $ordem->id) }}"
-                                class="text-green-600 hover:underline">
-                                Visualizar
-                            </a>
+                                <a href="{{ route('ordens.historico', $ordem->id) }}"
+                                    class="text-blue-700 hover:underline">
+                                    Histórico
+                                </a>
 
-                            <a href="{{ route('ordens.edit', $ordem->id) }}"
-                                class="text-blue-600 hover:underline">
-                                Editar
-                            </a>
+                                <form action="{{ route('ordens.destroy', $ordem->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Tem certeza que deseja excluir?')">
 
-                            <a href="{{ route('ordens.historico', $ordem->id) }}"
-                                class="text-blue-700 hover:underline">
-                                Histórico
-                            </a>
+                                    @csrf
+                                    @method('DELETE')
 
-                            <form action="{{ route('ordens.destroy', $ordem->id) }}"
-                                method="POST"
-                                onsubmit="return confirm('Tem certeza que deseja excluir?')">
-
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit"
-                                    class="text-red-600 hover:underline">
-                                    Excluir
-                                </button>
-                            </form>
-
+                                    <button type="submit"
+                                        class="text-red-600 hover:underline">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
                         </td>
 
                     </tr>
