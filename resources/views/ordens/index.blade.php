@@ -88,8 +88,31 @@
                         <td class="px-4 py-3">{{ $ordem->descricao }}</td>
                         <td class="px-4 py-3">R$ {{ number_format($ordem->valor_servico, 2, ',', '.') }}</td>
                         <td class="px-4 py-3">{{ $ordem->data_ordem }}</td>
-                        <td class="px-4 py-3">{{ $ordem->status }}</td>
-                        <td class="px-4 py-3">{{ $ordem->pagamento_status }}</td>
+                        <td class="px-4 py-3">
+                        <td class="px-4 py-3">
+                            @if($ordem->status == 'aberta')
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold">
+                                Aberta
+                            </span>
+                            @elseif($ordem->status == 'andamento')
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">
+                                Em andamento
+                            </span>
+                            @elseif($ordem->status == 'finalizada')
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">
+                                Finalizada
+                            </span>
+                            @endif
+                        </td>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                @if($ordem->pagamento_status == 'pendente') bg-red-100 text-red-800
+                                @elseif($ordem->pagamento_status == 'pago') bg-green-100 text-green-800
+                                @endif">
+                                {{ ucfirst($ordem->pagamento_status) }}
+                            </span>
+                        </td>
                         <td class="px-4 py-3">{{ $ordem->forma_pagamento ?? '-' }}</td>
 
 
