@@ -12,9 +12,15 @@ class ClienteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clientes = cliente::all();
+        $query = Cliente::query();
+
+        if ($request->busca) {
+            $query->where('nome', 'like', '%' . $request->busca . '%');
+        }
+
+        $clientes = $query->paginate(10)->withQueryString();
 
         return view('clientes.index', compact('clientes'));
     }
@@ -23,7 +29,7 @@ class ClienteController extends Controller
      * Show the form for creating a new resource.
      */
 
-    
+
     public function create()
     {
         return view('clientes.create');

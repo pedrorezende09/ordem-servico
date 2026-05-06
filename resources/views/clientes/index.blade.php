@@ -23,6 +23,25 @@
         </div>
         @endif
 
+        <form method="GET" action="{{ route('clientes.index') }}" class="mb-4 flex gap-2">
+
+            <input type="text"
+                name="busca"
+                placeholder="Buscar cliente..."
+                value="{{ request('busca') }}"
+                class="border rounded p-2">
+
+            <button class="bg-gray-800 text-white px-4 py-2 rounded">
+                Buscar
+            </button>
+
+            <a href="{{ route('clientes.index') }}"
+                class="bg-gray-300 px-4 py-2 rounded">
+                Limpar
+            </a>
+
+        </form>
+
         <!-- Tabela -->
         <div class="bg-white shadow rounded-lg overflow-hidden">
             <table class="min-w-full">

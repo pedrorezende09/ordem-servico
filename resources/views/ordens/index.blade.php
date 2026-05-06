@@ -136,8 +136,8 @@
                         <th class="w-32 px-4 py-3 text-left">Código</th>
                         <th class="w-32 px-4 py-3 text-center">Cliente</th>
                         <th class="w-40 px-4 py-3 text-center">Descrição</th>
-                        <th class="w-20 px-4 py-3 text-center">Valor</th>
-                        <th class="w-24 px-4 py-3 text-center">Data</th>
+                        <th class="w-40 px-4 py-3 text-center">Valor</th>
+                        <th class="w-40 px-4 py-3 text-center">Data</th>
                         <th class="px-4 py-3 text-center">Status</th>
                         <th class="px-4 py-3 text-center">Pagamento</th>
                         <th class="px-4 py-3 text-center">Forma de Pagamento</th>
